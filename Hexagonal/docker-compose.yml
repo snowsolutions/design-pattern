@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: 'web'
+    env_file: .env.web
     ports:
       - "3000:80"
     volumes:
@@ -15,6 +16,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: 'feature_flag'
+    env_file: .env.feature-flag
     ports:
       - "3001:80"
     volumes:
