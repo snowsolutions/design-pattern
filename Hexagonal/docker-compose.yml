@@ -1,0 +1,22 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: 'web'
+    ports:
+      - "3000:80"
+    volumes:
+      - .:/var/www/html
+    container_name: web_service
+
+  feature_flag:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: 'feature_flag'
+    ports:
+      - "3001:80"
+    volumes:
+      - ./FeatureFlag:/var/www/html
+    container_name: feature_flag_service

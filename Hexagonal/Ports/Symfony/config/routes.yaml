@@ -1,0 +1,10 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: SymfonyApp\Controller
+    type: attribute
+
+user_signup:
+    path: /api/signup
+    methods: POST
+    controller: SymfonyApp\Controller\SignUpController::execute
