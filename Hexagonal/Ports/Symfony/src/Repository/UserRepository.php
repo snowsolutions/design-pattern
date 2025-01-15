@@ -2,7 +2,11 @@
 namespace SymfonyApp\Repository;
 use Adapters\User\UserRepositoryAdapter;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Domains\Util\PaginatorInterface;
 use SymfonyApp\Entity\User;
+use SymfonyApp\SymfonyPaginator;
+
 class UserRepository extends EntityRepository implements UserRepositoryAdapter
 {
     public function isEmailExist(string $email): bool
@@ -23,5 +27,16 @@ class UserRepository extends EntityRepository implements UserRepositoryAdapter
         $user->setSource($source);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    public function paginate(int $page = 1, $pageSize = 10): PaginatorInterface
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->select('c')
+            ->orderBy('c.id', 'ASC')
+            ->setFirstResult(($page - 1) * $pageSize)
+            ->setMaxResults($pageSize);
+        $paginator = new Paginator($queryBuilder);
+        return new SymfonyPaginator($paginator);
     }
 }

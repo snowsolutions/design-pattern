@@ -3,6 +3,7 @@
 namespace LaravelApp\Repositories;
 
 use Adapters\User\UserRepositoryAdapter;
+use Domains\Util\PaginatorInterface;
 use LaravelApp\Models\User;
 
 class UserRepository implements UserRepositoryAdapter
@@ -29,5 +30,11 @@ class UserRepository implements UserRepositoryAdapter
             'phone' => $phone,
             'source' => $source
         ]);
+    }
+
+    public function paginate(int $page = 1, $pageSize = 10): PaginatorInterface
+    {
+        $paginator = User::paginate($pageSize, ['*'], 'page', $page);
+        return new LaravelPaginator($paginator);
     }
 }

@@ -1,9 +1,9 @@
 doctrine:
     dbal:
         driver: 'pdo_mysql' # Replace with your DB driver (e.g., 'pdo_pgsql' for PostgreSQL)
-        host: 'host.docker.internal'   # Replace with your database host
+        host: 'database_service'   # Replace with your database host
         port: 3306          # Replace with your database port
-        dbname: 'hexagonal_app' # Replace with your database name
+        dbname: 'cwatch_creditwatch' # Replace with your database name
         user: 'root'     # Replace with your database username
         password: 'root' # Replace with your database password
         profiling_collect_backtrace: '%kernel.debug%'

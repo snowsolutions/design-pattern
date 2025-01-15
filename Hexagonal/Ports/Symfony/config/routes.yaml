@@ -8,3 +8,8 @@ user_signup:
     path: /api/signup
     methods: POST
     controller: SymfonyApp\Controller\SignUpController::execute
+
+user_list:
+    path: /api/users
+    methods: GET
+    controller: SymfonyApp\Controller\UserController::index

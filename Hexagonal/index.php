@@ -3,7 +3,7 @@ use SymfonyApp\Kernel as SymfonyKernel;
 require_once "./Shared/service.php";
 // Unregister all root autoloader
 $features = get_features();
-$targetFramework = $features['framework'];
+$targetFramework = 'symfony';
 switch ($targetFramework) {
     case 'laravel': {
         require_once __DIR__ . '/Ports/Laravel/public/index.php';

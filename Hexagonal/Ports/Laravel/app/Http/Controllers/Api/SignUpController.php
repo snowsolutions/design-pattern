@@ -23,10 +23,10 @@ class SignUpController extends Controller
          * TODO: This is where non-business concerns code live
          */
         $postData = $request->all();
-        $email = $postData['email'];
-        $password = $postData['password'];
-        $name = $postData['name'];
-        $phone = $postData['phone'];
+        $email = $request->get('email');
+        $password = $request->get('password');
+        $name = $request->get('name');
+        $phone = $request->get('phone');
         $source = 'Laravel App';
         try {
             $this->signUpService->execute(
@@ -53,7 +53,7 @@ class SignUpController extends Controller
                         'email' => $email,
                     ]
                 ],
-                $exception->getCode()
+                500
             );
         }
     }

@@ -3,6 +3,9 @@ namespace SymfonyApp\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Serializer\Attribute\Ignore;
+
+
 #[ORM\Entity(repositoryClass: "SymfonyApp\\Repository\\UserRepository")]
 #[ORM\Table(name: "users")]
 #[ORM\Index(name: "user_id_index", columns: ["id"])]
@@ -22,11 +25,18 @@ class User
     #[ORM\Column(name: "email", type: "string", length: 255, nullable: false)]
     private string $email;
 
+    #[Ignore]
     #[ORM\Column(name: "password", type: "string", length: 255, nullable: false)]
     private string $password;
 
     #[ORM\Column(name: "source", type: "string", length: 255, nullable: false)]
     private string $source;
+
+    #[ORM\Column(name: "created_at", type: "datetime_immutable", nullable: true)]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(name: "updated_at", type: "datetime_immutable", nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): int
     {
@@ -81,5 +91,25 @@ class User
     public function setPhone(string $phone): void
     {
         $this->phone = $phone;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updateAt): void
+    {
+        $this->updatedAt = $updateAt;
     }
 }
