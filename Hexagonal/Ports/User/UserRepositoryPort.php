@@ -1,8 +1,8 @@
 <?php
-namespace Adapters\User;
+namespace Ports\User;
 use Domains\Util\PaginatorInterface;
 
-interface UserRepositoryAdapter
+interface UserRepositoryPort
 {
     public function isEmailExist(string $email): bool;
     public function create(

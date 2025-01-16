@@ -17,33 +17,35 @@ RUN docker-php-ext-install pdo_mysql mysqli && \
 # Install Composer globally
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 
-# Set up application files
-COPY ./ /var/www/html
 COPY .docker/nginx.conf /etc/nginx/nginx.conf
 
 # Create a non-root user
 RUN useradd -m -s /bin/bash app
-
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html/Ports/Laravel/storage /var/www/html/Ports/Laravel/bootstrap
-RUN chown -R app:app /var/www/html
 
 # Expose port
 EXPOSE 80
 
 # Web Build Stage
 FROM base AS web
+# Set up application files
+
+COPY ./ /var/www/html
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html/Adapters/Laravel/storage /var/www/html/Adapters/Laravel/bootstrap
+RUN chown -R app:app /var/www/html
 
 # Switch to the app user
 USER app
 
 # Install Laravel dependencies
-WORKDIR /var/www/html/Ports/Laravel
-RUN composer install --no-dev --optimize-autoloader -vvv
+WORKDIR /var/www/html/Adapters/Laravel
+#RUN composer install --no-dev --optimize-autoloader -vvv
+RUN php artisan migrate
 
 # Install Symfony dependencies
-WORKDIR /var/www/html/Ports/Symfony
-RUN composer install --no-dev --optimize-autoloader -vvv
+WORKDIR /var/www/html/Adapters/Symfony
+#RUN composer install --no-dev --optimize-autoloader -vvv
 
 # Copy Supervisor configuration
 COPY .docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -54,14 +56,17 @@ CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 # Feature Flag Build Stage
 FROM base AS feature_flag
 
+COPY ./Shared/FeatureFlag /var/www/html
+
+RUN ls -lah /var/www/html
+
+RUN chown -R app:app /var/www/html
 # Switch to the app user
 USER app
-
-COPY ./FeatureFlag /var/www/html
-
 # Install dependencies for the entire application
 WORKDIR /var/www/html
-RUN composer install --no-dev --optimize-autoloader -vvv
+
+#RUN composer install --no-dev --optimize-autoloader -vvv
 
 # Copy Supervisor configuration
 COPY .docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf

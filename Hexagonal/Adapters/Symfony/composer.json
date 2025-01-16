@@ -34,7 +34,7 @@
         "psr-4": {
             "SymfonyApp\\": "src/",
             "Domains\\": "../../Domains",
-            "Adapters\\": "../../Adapters"
+            "Ports\\": "../../Ports"
         }
     },
     "autoload-dev": {

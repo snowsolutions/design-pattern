@@ -1,13 +1,13 @@
 <?php
 namespace SymfonyApp\Repository;
-use Adapters\User\UserRepositoryAdapter;
+use Ports\User\UserRepositoryPort;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Domains\Util\PaginatorInterface;
 use SymfonyApp\Entity\User;
 use SymfonyApp\SymfonyPaginator;
 
-class UserRepository extends EntityRepository implements UserRepositoryAdapter
+class UserRepository extends EntityRepository implements UserRepositoryPort
 {
     public function isEmailExist(string $email): bool
     {

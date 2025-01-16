@@ -1,6 +1,6 @@
 ## What in this repository?
 - A demonstration of how to implement Hexagonal and drive development by Domain
-- Example using Laravel and Symfony as 2 available Ports
+- Example using Laravel and Symfony as 2 available Adapters
 - The example will provide a simple Sign Up API and feature flag to switch over between Laravel and Symfony framework on the air
 ## What is the requirement to run?
 - Docker

@@ -2,7 +2,7 @@
 
 namespace LaravelApp\Providers;
 
-use Adapters\User\UserRepositoryAdapter;
+use Ports\User\UserRepositoryPort;
 use Domains\User\SignUpService;
 use Domains\User\UserService;
 use Illuminate\Support\ServiceProvider;
@@ -24,11 +24,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         App()->when(SignUpService::class)
-            ->needs(UserRepositoryAdapter::class)
+            ->needs(UserRepositoryPort::class)
             ->give(UserRepository::class);
 
         App()->when(UserService::class)
-            ->needs(UserRepositoryAdapter::class)
+            ->needs(UserRepositoryPort::class)
             ->give(UserRepository::class);
     }
 }

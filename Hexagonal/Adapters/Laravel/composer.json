@@ -29,7 +29,7 @@
             "Laravel\\Database\\Factories\\": "database/factories/",
             "Laravel\\Database\\Seeders\\": "database/seeders/",
             "Domains\\": "../../Domains",
-            "Adapters\\": "../../Adapters"
+            "Ports\\": "../../Ports"
         }
     },
     "autoload-dev": {

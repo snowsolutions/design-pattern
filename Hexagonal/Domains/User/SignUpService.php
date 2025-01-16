@@ -1,12 +1,12 @@
 <?php
 namespace Domains\User;
-use Adapters\User\UserRepositoryAdapter;
+use Ports\User\UserRepositoryPort;
 use Domains\Exception\UserEmailAlreadyExistException;
 
 class SignUpService
 {
     public function __construct(
-        private readonly UserRepositoryAdapter $userRepositoryAdapter
+        private readonly UserRepositoryPort $userRepositoryPort
     )
     {
     }
@@ -22,9 +22,9 @@ class SignUpService
         string $source
     )
     {
-        if ($this->userRepositoryAdapter->isEmailExist($email)) {
+        if ($this->userRepositoryPort->isEmailExist($email)) {
             throw new UserEmailAlreadyExistException();
         }
-        $this->userRepositoryAdapter->create($email, $password, $name, $phone, $source);
+        $this->userRepositoryPort->create($email, $password, $name, $phone, $source);
     }
 }

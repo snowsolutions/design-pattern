@@ -1,19 +1,19 @@
 <?php
 namespace Domains\User;
 
-use Adapters\User\UserRepositoryAdapter;
+use Ports\User\UserRepositoryPort;
 use Domains\Util\PaginatorInterface;
 
 class UserService
 {
   public function __construct(
-    private readonly UserRepositoryAdapter $userRepositoryAdapter
+    private readonly UserRepositoryPort $userRepositoryPort
   )
   {
   }
 
   public function paginate(int $page = 1, $pageSize = 10): PaginatorInterface
   {
-      return $this->userRepositoryAdapter->paginate($page, $pageSize);
+      return $this->userRepositoryPort->paginate($page, $pageSize);
   }
 }

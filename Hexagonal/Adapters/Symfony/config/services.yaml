@@ -11,7 +11,7 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            $userRepositoryAdapter: '@SymfonyApp\Repository\UserAdapterRepository'
+            $userRepositoryPort: '@SymfonyApp\Repository\UserPortRepository'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -28,7 +28,7 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    SymfonyApp\Repository\UserAdapterRepository:
+    SymfonyApp\Repository\UserPortRepository:
         arguments: [
             '@doctrine.orm.entity_manager',
         ]

@@ -2,11 +2,11 @@
 
 namespace LaravelApp\Repositories;
 
-use Adapters\User\UserRepositoryAdapter;
+use Ports\User\UserRepositoryPort;
 use Domains\Util\PaginatorInterface;
 use LaravelApp\Models\User;
 
-class UserRepository implements UserRepositoryAdapter
+class UserRepository implements UserRepositoryPort
 {
 
 
